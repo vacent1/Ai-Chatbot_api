@@ -419,16 +419,13 @@ class Chatify:
 
     def _render_messages(self):
         self._clear_messages()
-        self.msg_inner.update_idletasks()
         chat = self._get_chat(self.active_id)
         if not chat: return
         if not chat["messages"]:
             self._show_empty(); return
         for msg in chat["messages"]:
             self._bubble(msg["role"], msg["content"], msg.get("time",""))
-        self.msg_inner.update_idletasks()
-        self.msg_canvas.configure(scrollregion=self.msg_canvas.bbox("all"))
-        self.root.after(150, self._scroll_bottom)
+        self.root.after(100, self._scroll_bottom)
 
     def _show_empty(self):
         tk.Frame(self.msg_inner, bg=BG, height=160).pack(fill="x")
